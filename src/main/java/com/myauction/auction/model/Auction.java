@@ -15,12 +15,13 @@ public class Auction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "auction_id")
     private Long auctionId;
+
     @OneToOne
     @JoinColumn(name = "product_id")
     private Product product;
     private int numberOfBids = 0;
     private double highestBid = 0;
-    private Long highestBidder;
+    private String highestBidder;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private double reservedPrice;

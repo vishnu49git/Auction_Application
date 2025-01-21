@@ -1,5 +1,4 @@
 package com.myauction.auction.service;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -7,15 +6,11 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
 import javax.crypto.SecretKey;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-//import static jdk.jfr.internal.EventWriterKey.getKey;
 @Service
 public class JwtUtil {
     private String secretkey = "mysecretkey/mysecretkey/mysecretkey/mysecretkey";
@@ -29,11 +24,9 @@ public class JwtUtil {
                 .subject(userDetails.getUsername())
                 .claim("roles", roles)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .expiration(new Date(System.currentTimeMillis() + 10000 * 60 * 60))
                 .signWith(getKey())
                 .compact();
-
-
     }
 
     public SecretKey getKey() {

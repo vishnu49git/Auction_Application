@@ -29,7 +29,6 @@ public class Security {
     @Bean
     public SecurityFilterChain securityF(HttpSecurity httpSec, JwtFilter jwtFilter) throws Exception {
         return httpSec
-
                 .csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth -> auth
                 .requestMatchers( "/swagger-ui/**",
                         "/v3/api-docs/**",
@@ -37,31 +36,24 @@ public class Security {
                         "/webjars/**",
                         "/auth/register/**",
                         "/auth/login/**").permitAll()
-                        .requestMatchers("/auction/**","/product/**").hasRole("USER")
-                        .requestMatchers("/placeBid/**").hasRole("USER")
+                        .requestMatchers("/auction/**","/product/**").hasAnyRole("SUPER_ADMIN","ADMIN","USER")
                 .requestMatchers("/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN")
-//                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
-
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-
                 .logout(LogoutConfigurer::permitAll)
-//                .formLogin(formlogin -> formlogin.loginPage("/auth/login").permitAll())
                 .build();
 
     }
-//    .formLogin(formlogin -> formlogin.loginPage("/login").permitAll()
-//                        .failureUrl("/login?error=true"))
+
     @Bean
     public AuthenticationProvider authPro() throws Exception{
         DaoAuthenticationProvider authProvide = new DaoAuthenticationProvider();
         authProvide.setPasswordEncoder(encoderr());
         authProvide.setUserDetailsService(customUserDetailsService);
         return authProvide;
-
     }
     @Bean
     public PasswordEncoder encoderr() {

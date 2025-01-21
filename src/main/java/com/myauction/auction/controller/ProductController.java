@@ -13,12 +13,12 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/all")
+    @GetMapping("/allProducts")
     public List<Product> getAllProducts(){
         return productService.getAllProducts();
     }
-    @GetMapping("/{productId}")
+    @GetMapping("/productById/{productId}")
     public Product getProduct(@PathVariable Long productId){
-        return productService.getProduct(productId);
+        return productService.getProductById(productId);
     }
 }

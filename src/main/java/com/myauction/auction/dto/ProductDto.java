@@ -9,5 +9,5 @@ public class ProductDto {
     private String productName;
     private String description;
     private String sku;
-//    private String imgUrl;
+
 }

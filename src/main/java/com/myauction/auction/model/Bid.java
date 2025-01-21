@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class Bid {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "bid_id")
     private Long bidId;
 
     @ManyToOne
